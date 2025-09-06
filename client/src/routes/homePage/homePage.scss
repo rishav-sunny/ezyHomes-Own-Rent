@@ -3,6 +3,8 @@
 .homePage{
     display: flex;
     height: 100%;
+    position: relative;   //added this
+    z-index: 0;  // added this
 
     .textContainer{
         flex: 3;
@@ -66,19 +68,23 @@
         display: flex;
         align-items: center;
         overflow: visible;
+        z-index: 0; //added this
 
         @include md{
             display: none;
         }
 
-        img{
-            width: 115%;
-            position: absolute;
-            right: 0;
-        
-            @include lg {
-                width: 105%;
-            }
-        }
+        img {
+      width: 115%;
+      position: absolute;
+      right: 0;
+      top: 50%;                     // center vertically
+      transform: translateY(-50%);  // center vertically
+      z-index: 0;                   // push behind
+      pointer-events: none;         // ✅ critical: image won’t block clicks
+      @include lg {
+        width: 105%;
+      }
     }
+  }
 }

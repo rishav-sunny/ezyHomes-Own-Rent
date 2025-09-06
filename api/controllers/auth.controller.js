@@ -3,41 +3,71 @@ import jwt from 'jsonwebtoken';
 import prisma from '../lib/prisma.js';
 
 export const register = async (req, res) => {
+  try {
     const { username, email, password } = req.body;
 
-    // HASH THE PASSWORD
-    try{
-        // check this user exists or new
-        const user = await prisma.user.findUnique({
-            where: {
-                username
-            }
-        });
+    console.log("Register request body:", req.body);
 
-        if(user){
-            return res.status(401).json({ message: "User Exists! Failed to create user" });
-        }
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: { username }
+    });
 
-        // if no user exists then create a new user
-        const hashedPassword = await bcrypt.hash(password, 12);
-        
-        // CREATE A NEW USER AND SAVE IT TO THE DATABASE
-        const newUser = await prisma.user.create({
-            data: {
-                username,
-                email,
-                password: hashedPassword
-            }
-        });
-
-        // console.log(newUser);
-        res.status(201).json({ message: "User created successfully" });
-    }catch(error){
-        console.log(error);
-        res.status(500).json({ message: "Failed to create user!" });
+    if (user) {
+      return res.status(400).json({ message: "User already exists" });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const newUser = await prisma.user.create({
+      data: { username, email, password: hashedPassword }
+    });
+
+    console.log("New user created:", newUser);
+
+    res.status(201).json({ message: "User created successfully", user: newUser });
+
+  } catch (error) {
+    console.error("REGISTER ERROR:", error); // <-- important!
+    res.status(500).json({ message: error.message, stack: error.stack });
+  }
 };
+
+
+//   const { username, email, password } = req.body;
+
+//   try {
+//     // Check if user already exists by username or email
+//     const existingUser = await prisma.user.findFirst({
+//       where: {
+//         OR: [{ username }, { email }]
+//       }
+//     });
+
+//     if (existingUser) {
+//       return res.status(401).json({ message: "Username or Email already exists!" });
+//     }
+
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(password, 12);
+
+//     // Create new user
+//     const newUser = await prisma.user.create({
+//       data: {
+//         username,
+//         email,
+//         password: hashedPassword,
+//       }
+//     });
+
+//     res.status(201).json({ message: "User created successfully", user: { id: newUser.id, username: newUser.username, email: newUser.email } });
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Failed to create user!" });
+//   }
+// };
+
 
 
 export const login = async (req, res) => {
