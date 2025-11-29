@@ -2,7 +2,8 @@ import { Server } from "socket.io";
 
 const io = new Server({
     cors: {
-    origin: ["https://abcNetlify.app", "http://localhost:5173"],
+    origin: ["https://ezy-homes-own-rent.vercel.app", "http://localhost:5173"],
+    methods: ["GET", "POST"],
   }
 });
 

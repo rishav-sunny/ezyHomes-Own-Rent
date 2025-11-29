@@ -15,7 +15,7 @@ dotenv.config()
 const app = express();
 // hi this idhfjshkf
 app.use(cors({
-  origin: ["http://localhost:5173", "https://dev-estate-saa21.netlify.app"],
+  origin: ["http://localhost:5173", "https://ezy-homes-own-rent.vercel.app"],
   credentials:true,
 }));
 
