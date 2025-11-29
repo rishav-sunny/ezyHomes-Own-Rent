@@ -1,9 +1,11 @@
 import axios from "axios";
 
+export const BASE_URL = "https://ezyhomes-backend.onrender.com/api";
+
 const apiRequest = axios.create({
-    // baseURL: "https://real-estate-backend-8uov.onrender.com/api",
-    // baseURL: "https://regal-brioche-8c4966.netlify.app/api",
-  baseURL: "http://localhost:8800/api",
+    
+  //baseURL: "http://localhost:8800/api",
+  baseURL: BASE_URL,
     withCredentials: true,
 });
 
