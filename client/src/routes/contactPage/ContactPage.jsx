@@ -73,7 +73,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   id="name"
-                  placeholder="Alice Bob"
+                  placeholder="Enter your name"
                   className="form-input"
                   required
                   value={formData.name}
@@ -88,7 +88,7 @@ export default function ContactPage() {
                 <input
                   type="email"
                   id="email"
-                  placeholder="alice@example.com"
+                  placeholder="Enter your email address"
                   className="form-input"
                   required
                   value={formData.email}

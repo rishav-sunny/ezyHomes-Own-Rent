@@ -13,17 +13,19 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const app = express();
-// hi this idhfjshkf
+
+//CORS
 app.use(cors({
-  origin: ["http://localhost:5173", "https://ezy-homes-own-rent.vercel.app"],
+  origin: process.env.CLIENT_URL?.split(',') || ["http://localhost:5173"],
   credentials:true,
 }));
 
-
+//MIDDLEWARES
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/api/post", postRouter);
+
+//ROUTES
 
 app.use("/api/auth", authRouter);
 
@@ -40,8 +42,8 @@ app.use("/api", contactRouter)
 app.use("/api/test", testRoute);
 
 
-const port = process.env.PORT || 8800
-
-app.listen(port, ()=>{
-    console.log("Server is running on port 8800");
+//SERVER Server
+const PORT = process.env.PORT || 8800
+app.listen(PORT, ()=>{
+    console.log(`Server is running on port ${PORT}`);
 })
