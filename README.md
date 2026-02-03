@@ -2,6 +2,13 @@
 
 A full-stack real estate platform built with modern web technologies, featuring property listings, user authentication, real-time chat, and more.
 
+- See Screenshot folder for more images
+[!image url](https://github.com/rishav-sunny/ezyHomes-Own-Rent/blob/main/screenshot/Screenshot%202026-01-31%20160710.png?raw=true)
+[!image url](https://github.com/rishav-sunny/ezyHomes-Own-Rent/blob/main/screenshot/Screenshot%202026-01-31%20160722.png?raw=true)
+[!image url](https://github.com/rishav-sunny/ezyHomes-Own-Rent/blob/main/screenshot/Screenshot%202026-01-31%20160657.png?raw=true)
+[!image url](https://github.com/rishav-sunny/ezyHomes-Own-Rent/blob/main/screenshot/Screenshot%202026-01-31%20160804.png?raw=true)
+
+
 ## 🚀 Features
 
 - **Property Listings**: Browse and search through available properties
@@ -10,6 +17,7 @@ A full-stack real estate platform built with modern web technologies, featuring 
 - **User Profiles**: Manage user accounts and preferences
 - **Contact System**: Direct communication between users
 - **Responsive Design**: Mobile-friendly interface
+
 
 ## 🏗️ Architecture
 
