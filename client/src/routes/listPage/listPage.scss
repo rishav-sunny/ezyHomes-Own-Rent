@@ -16,6 +16,77 @@
             gap: 50px;
             overflow-y: scroll;
             padding-bottom: 50px;
+
+            .noPropertiesContainer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 400px;
+                padding: 40px 20px;
+
+                .noPropertiesBox {
+                    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+                    border: 2px solid #fece51;
+                    border-radius: 20px;
+                    padding: 60px 40px;
+                    text-align: center;
+                    box-shadow: 0 10px 40px rgba(254, 206, 81, 0.2);
+                    max-width: 500px;
+                    width: 100%;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 15px 50px rgba(254, 206, 81, 0.3);
+                    }
+
+                    .iconContainer {
+                        margin-bottom: 25px;
+                        display: flex;
+                        justify-content: center;
+                        animation: bounce 2s infinite;
+
+                        svg {
+                            filter: drop-shadow(0 4px 8px rgba(254, 206, 81, 0.3));
+                        }
+                    }
+
+                    h2 {
+                        color: #333;
+                        font-size: 28px;
+                        font-weight: 700;
+                        margin-bottom: 15px;
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    }
+
+                    p {
+                        color: #666;
+                        font-size: 16px;
+                        line-height: 1.6;
+                        margin-bottom: 10px;
+                    }
+
+                    .suggestion {
+                        color: #fece51;
+                        font-weight: 600;
+                        font-size: 18px;
+                        margin-top: 20px;
+                        padding: 15px;
+                        background: rgba(254, 206, 81, 0.1);
+                        border-radius: 10px;
+                        border: 1px dashed #fece51;
+                    }
+                }
+            }
+
+            @keyframes bounce {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
         }
     }
 

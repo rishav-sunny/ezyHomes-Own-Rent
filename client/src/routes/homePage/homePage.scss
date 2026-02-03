@@ -2,9 +2,15 @@
 
 .homePage{
     display: flex;
+    flex-direction: column;
     height: 100%;
-    position: relative;   //added this
-    z-index: 0;  // added this
+
+    .heroSection {
+        display: flex;
+        height: 100%;
+        position: relative;
+        z-index: 0;
+    }
 
     .textContainer{
         flex: 3;
@@ -87,4 +93,95 @@
       }
     }
   }
+  .latestProperties{
+        padding: 60px 0;
+        background-color: #f9f9f9;
+        width: 100%;
+
+        .wrapper{
+            max-width: 1366px;
+            margin: 0 auto;
+            padding: 0 60px;
+
+            @include md{
+                padding: 0 30px;
+            }
+
+            @include sm{
+                padding: 0 20px;
+            }
+
+            .sectionTitleContainer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 50px;
+
+                .sectionTitle{
+                    font-size: 42px;
+                    font-weight: 700;
+                    color: #333;
+                    text-align: center;
+                    position: relative;
+                    padding: 0 20px;
+                    animation: fadeInUp 0.8s ease-out;
+                    background: linear-gradient(135deg, #333 0%, #fece51 50%, #ff9800 100%);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+
+                    @include lg{
+                        font-size: 36px;
+                    }
+
+                    @include md{
+                        font-size: 30px;
+                    }
+
+                    @include sm{
+                        font-size: 26px;
+                    }
+                }
+
+                .titleUnderline {
+                    width: 80px;
+                    height: 4px;
+                    background: linear-gradient(90deg, #fece51, #ff9800);
+                    border-radius: 2px;
+                    margin-top: 15px;
+                    animation: expandWidth 1s ease-out 0.3s backwards;
+                }
+            }
+
+            .propertyGrid{
+                display: flex;
+                flex-direction: column;
+                gap: 25px;
+
+                @include sm{
+                    gap: 20px;
+                }
+            }
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes expandWidth {
+        from {
+            width: 0;
+        }
+        to {
+            width: 80px;
+        }
+    }
 }

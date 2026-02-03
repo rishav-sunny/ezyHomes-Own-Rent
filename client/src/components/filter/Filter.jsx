@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './filter.scss'
 import { useSearchParams } from 'react-router-dom';
+import { Search } from 'lucide-react'
 
 function Filter() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -93,7 +94,7 @@ function Filter() {
             />
           </div>
           <button onClick={handleFilter}>
-            <img src="/search.png" alt="" />
+            <Search size={20} />
           </button>
         </div>
       </div>

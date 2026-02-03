@@ -30,21 +30,18 @@ function UploadWidget({ uwConfig, setPublicId, setState }) {
       var myWidget = window.cloudinary.createUploadWidget(
         uwConfig,
         (error, result) => {
-          if (!error && result && result.event === "success") {
+          if (error) {
+            console.error("Upload error:", error);
+            return;
+          }
+          if (result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
             setState((prev) => [...prev, result.info.secure_url]);
-            // setAvatar(result.info.secure_url);
           }
         }
       );
 
-      document.getElementById("upload_widget").addEventListener(
-        "click",
-        function () {
-          myWidget.open();
-        },
-        false
-      );
+      myWidget.open();
     }
   };
 
@@ -53,9 +50,11 @@ function UploadWidget({ uwConfig, setPublicId, setState }) {
       <button
         id="upload_widget"
         className="cloudinary-button"
+        type="button"
         onClick={initializeCloudinaryWidget}
+        disabled={!loaded}
       >
-        Upload
+        {loaded ? "Upload Images" : "Loading..."}
       </button>
     </CloudinaryScriptContext.Provider>
   );

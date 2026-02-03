@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "./searchBar.scss";
 import { Link } from "react-router-dom";
+import { Search } from 'lucide-react';
 
 const types = ["buy", "rent"];
 
 function SearchBar() {
   const [query, setQuery] = useState({
     type: "buy",
-    location: "",
+    city: "",
     minPrice: 0,
     maxPrice: 0,
   });
@@ -57,13 +58,15 @@ function SearchBar() {
           onChange={handleChange}
         />
         <Link to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}>
-          <button>
-            <img src="/search.png" alt="" />
+          <button type="button">
+            <Search size={20} />
           </button>
         </Link>
       </form>
     </div>
   );
+  
+  explanation: "Added type='button' to prevent form submission conflict"
 }
 
 export default SearchBar;

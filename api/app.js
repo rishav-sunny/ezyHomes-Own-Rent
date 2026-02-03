@@ -26,7 +26,6 @@ app.use(cookieParser());
 
 
 //ROUTES
-
 app.use("/api/auth", authRouter);
 
 app.use("/api/users", userRouter);
@@ -37,7 +36,7 @@ app.use("/api/chats", chatRouter);
 
 app.use("/api/messages", messageRouter);
 
-app.use("/api", contactRouter)
+app.use("/api/contacts", contactRouter)
 
 app.use("/api/test", testRoute);
 

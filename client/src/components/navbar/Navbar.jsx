@@ -3,6 +3,7 @@ import './navbar.scss'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { useNotificationStore } from '../../lib/notificationStore';
+import { Menu, X } from 'lucide-react'
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -26,10 +27,9 @@ const Navbar = () => {
                     <span>EzyHomes</span>
                 </Link>
                 <Link to="/">Home</Link>
+                <Link to="/list">Properties</Link>
                 <Link to="/about">About</Link>
                 <Link to="/contact">Contact</Link>
-                <Link to="/list">Properties</Link>
-                <Link to="/">Agents</Link>
             </div>
             <div className='right'>
                 {currentUser ? (
@@ -48,16 +48,15 @@ const Navbar = () => {
                     </>
                 )}
                 <div className="menuIcon">
-                    <img src="/menu.png" alt="" onClick={()=>setOpen(!open)}/>
+                    <Menu size={28} onClick={()=>setOpen(!open)} style={{cursor: 'pointer'}}/>
                 </div>
                 <div className={open ? "menu active" : "menu"}>
                     <Link to="/">Home</Link>
+                    <Link to="/list">Properties</Link>
                     <Link to="/about">About</Link>
                     <Link to="/contact">Contact</Link>
-                    <Link to="/list">Properties</Link>
-                    <Link to="/">Agents</Link>                    
-                    <Link to="/">Sign In</Link>                    
-                    <Link to="/">Sign Up</Link>                    
+                    <Link to="/login">Sign In</Link>                    
+                    <Link to="/register">Sign Up</Link>                    
                 </div>
             </div>
         </nav>

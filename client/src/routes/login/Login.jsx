@@ -39,6 +39,10 @@ const Login = () => {
     }
   }
 
+  const handleSkipLogin = () => {
+    nevigate("/");
+  };
+
   return (
     <div className='login'>
         <div className="formContainer">
@@ -49,6 +53,9 @@ const Login = () => {
             <button disabled={loading}>Login</button>
             {error && <span className="error">{error}</span>}
             <Link to={"/register"}>{"Don't"} you have an account</Link>
+            <button type="button" className="skipButton" onClick={handleSkipLogin}>
+              Skip and Browse as Guest
+            </button>
           </form>
         </div>
         <div className="imgContainer">

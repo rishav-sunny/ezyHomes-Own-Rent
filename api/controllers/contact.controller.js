@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
+import prisma from "../lib/prisma.js";
 
 export const createContact = async (req, res) => {
   const { email, name, subject, message } = req.body

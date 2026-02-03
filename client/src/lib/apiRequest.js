@@ -1,11 +1,10 @@
 import axios from "axios";
 
-export const BASE_URL = "https://ezyhomes-backend.onrender.com/api";
+// Use environment variable if available, fallback to localhost for development
+export const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8800/api";
 
 const apiRequest = axios.create({
-    
-  //baseURL: "http://localhost:8800/api",
-  baseURL: BASE_URL,
+    baseURL: BASE_URL,
     withCredentials: true,
 });
 

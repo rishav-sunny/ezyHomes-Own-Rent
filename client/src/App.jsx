@@ -11,6 +11,7 @@ import Login from "./routes/login/Login";
 import Register from "./routes/register/Register";
 import ProfileUpdatePage from "./routes/profileUpdatePage/ProfileUpdatePage";
 import NewPostPage from "./routes/newPostPage/NewPostPage";
+import EditPostPage from "./routes/editPostPage/EditPostPage";
 import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loaders";
 
 import ContactPage from "./routes/contactPage/ContactPage"; // Import the ContactPage component
@@ -70,6 +71,10 @@ function App() {
         {
           path: "/add",
           element: <NewPostPage />,
+        },
+        {
+          path: "/edit/:id",
+          element: <EditPostPage />,
         },
       ],
     },

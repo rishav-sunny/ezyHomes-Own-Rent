@@ -5,6 +5,23 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 60px;
+  padding-right: 60px;
+
+  @include lg {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @include md {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  @include sm {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 
   a {
     transition: all 0.4s ease;
@@ -23,16 +40,17 @@ nav {
     display: flex;
     align-items: center;
     gap: 50px;
+    margin-left: -20px;
 
     .logo {
       font-weight: bold;
-      font-size: 20px;
+      font-size: 18px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
 
       img {
-        width: 28px;
+        width: 22px;
       }
 
       span {

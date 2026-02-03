@@ -45,6 +45,21 @@
           border-bottom: 1px solid gray;
           width: max-content;
         }
+
+        .skipButton {
+          background-color: #f8f8f8;
+          color: #666;
+          border: 2px solid #ddd;
+          padding: 15px 20px;
+          font-weight: 600;
+          transition: all 0.3s ease;
+
+          &:hover {
+            background-color: #fff;
+            color: #333;
+            border-color: #fece51;
+          }
+        }
       }
     }
   

@@ -3,10 +3,31 @@
 .card{
     display: flex;
     gap: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    background-color: #fff;
+
+    &:hover{
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
 
     .imageContainer{
         flex: 2;
-        height: 200px;
+        min-height: 250px;
+        max-height: 250px;
+
+        @include lg{
+            min-height: 220px;
+            max-height: 220px;
+        }
+
+        @include md{
+            min-height: 200px;
+            max-height: 200px;
+        }
 
         @include sm{
             display: none;
@@ -26,6 +47,121 @@
         flex-direction: column;
         justify-content: space-between;
         gap: 10px;
+
+        .titleRow{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+
+            .actionButtons{
+                display: flex;
+                gap: 8px;
+                flex-shrink: 0;
+            }
+
+            .connectSellerBtn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 10px 20px;
+                background: linear-gradient(135deg, #fece51 0%, #ff9800 100%);
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 600;
+                transition: all 0.4s ease;
+                box-shadow: 0 4px 15px rgba(254, 206, 81, 0.3);
+                position: relative;
+                overflow: hidden;
+                white-space: nowrap;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+                    transition: left 0.5s;
+                }
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 0 6px 20px rgba(254, 206, 81, 0.5);
+                    background: linear-gradient(135deg, #ff9800 0%, #fece51 100%);
+
+                    &::before {
+                        left: 100%;
+                    }
+
+                    .btnIcon {
+                        transform: translateX(5px);
+                    }
+                }
+
+                .btnText {
+                    font-size: 14px;
+                }
+
+                .btnIcon {
+                    font-size: 18px;
+                    transition: transform 0.3s ease;
+                    font-weight: bold;
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+
+            .editButton, .deleteButton{
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                padding: 8px 16px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 500;
+                transition: all 0.3s ease;
+                white-space: nowrap;
+
+                svg{
+                    width: 16px;
+                    height: 16px;
+                }
+
+                &:disabled{
+                    opacity: 0.6;
+                    cursor: not-allowed;
+                }
+            }
+
+            .editButton{
+                background-color: #fece51;
+                color: #333;
+
+                &:hover:not(:disabled){
+                    background-color: #fdb714;
+                    transform: scale(1.05);
+                }
+            }
+
+            .deleteButton{
+                background-color: #ff4444;
+                color: white;
+
+                &:hover:not(:disabled){
+                    background-color: #cc0000;
+                    transform: scale(1.05);
+                }
+            }
+        }
 
         img{
             width: 16px;
@@ -93,11 +229,165 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    &:hover{
+                        background-color: lightgray;
+                    }
+                }
+            }
+        }
+    }
+
+    .contactModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+
+        .modalContent {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+
+            .closeModal {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: none;
+                border: none;
+                font-size: 30px;
+                cursor: pointer;
+                color: #999;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: #f0f0f0;
+                    color: #333;
+                }
+            }
+
+            h3 {
+                margin-bottom: 25px;
+                color: #333;
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .sellerInfo {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 20px;
+                background: #f8f9fa;
+                border-radius: 10px;
+                margin-bottom: 20px;
+
+                .sellerAvatar {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: 3px solid #fece51;
                 }
 
-                &:hover{
-                    background-color: lightgray;
+                div {
+                    h4 {
+                        margin: 0;
+                        font-size: 18px;
+                        color: #333;
+                    }
+
+                    p {
+                        margin: 5px 0 0 0;
+                        color: #666;
+                        font-size: 14px;
+                    }
                 }
+            }
+
+            .modalText {
+                text-align: center;
+                color: #666;
+                line-height: 1.6;
+                margin-bottom: 30px;
+            }
+
+            .modalButtons {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+
+                button {
+                    padding: 15px 30px;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    font-size: 16px;
+                    transition: all 0.3s ease;
+                }
+
+                .connectBtn {
+                    background: linear-gradient(135deg, #fece51 0%, #ff9800 100%);
+                    color: white;
+                    box-shadow: 0 4px 15px rgba(254, 206, 81, 0.4);
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(254, 206, 81, 0.6);
+                    }
+                }
+
+                .cancelBtn {
+                    background: #f0f0f0;
+                    color: #666;
+
+                    &:hover {
+                        background: #e0e0e0;
+                        color: #333;
+                    }
+                }
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
     }

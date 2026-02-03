@@ -20,6 +20,7 @@ model Post {
   images      String[]
   address     String
   city        String
+  state       String?
   bedroom     Int
   bathroom    Int
   latitude    String

@@ -3,9 +3,9 @@ import { createContact, getContacts, updateContactStatus } from '../controllers/
 
 const router = express.Router();
 
-router.post('/contacts', createContact);
-router.get('/contacts', getContacts);
-router.patch('/contacts/:id/status', updateContactStatus)
+router.post('/', createContact);
+router.get('/', getContacts);
+router.patch('/:id/status', updateContactStatus)
 
 export default router
 

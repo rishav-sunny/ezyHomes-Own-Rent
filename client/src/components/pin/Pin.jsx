@@ -12,7 +12,7 @@ function Pin({item}) {
             <div className="textContainer">
                 <Link to={`/${item.id}`}>{item.title}</Link>
                 <span className='bed'>{item.bedroom} bedroom</span>
-                <b>$ {item.price}</b>
+                <b>₹ {item.price.toLocaleString()}</b>
             </div>
         </div>
       </Popup>

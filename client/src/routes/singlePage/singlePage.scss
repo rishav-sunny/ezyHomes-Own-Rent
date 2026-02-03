@@ -183,6 +183,8 @@
             .buttons{
                 display: flex;
                 justify-content: space-between;
+                gap: 10px;
+                flex-wrap: wrap;
 
                 button{
                     display: flex;
@@ -194,10 +196,187 @@
                     border: 1px solid #fece51;
                     border-radius: 5px;
                     cursor: pointer;
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    }
 
                     img{
                         height: 16px;
                         width: 16px;
+                    }
+                }
+
+                .buyButton {
+                    background: linear-gradient(135deg, #fece51 0%, #ff9800 100%);
+                    color: white;
+                    border: none;
+                    font-weight: 600;
+                    font-size: 16px;
+                    padding: 20px 30px;
+                    box-shadow: 0 4px 15px rgba(254, 206, 81, 0.4);
+
+                    &:hover {
+                        background: linear-gradient(135deg, #ff9800 0%, #fece51 100%);
+                        box-shadow: 0 6px 20px rgba(254, 206, 81, 0.6);
+                    }
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+            }
+
+            .contactModal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.6);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+
+                .modalContent {
+                    background: white;
+                    padding: 40px;
+                    border-radius: 20px;
+                    max-width: 500px;
+                    width: 90%;
+                    position: relative;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                    animation: slideUp 0.3s ease;
+
+                    .closeModal {
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        background: none;
+                        border: none;
+                        font-size: 30px;
+                        cursor: pointer;
+                        color: #999;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        transition: all 0.3s ease;
+
+                        &:hover {
+                            background: #f0f0f0;
+                            color: #333;
+                        }
+                    }
+
+                    h3 {
+                        margin-bottom: 25px;
+                        color: #333;
+                        font-size: 24px;
+                        text-align: center;
+                    }
+
+                    .sellerInfo {
+                        display: flex;
+                        align-items: center;
+                        gap: 15px;
+                        padding: 20px;
+                        background: #f8f9fa;
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+
+                        img {
+                            width: 60px;
+                            height: 60px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            border: 3px solid #fece51;
+                        }
+
+                        div {
+                            h4 {
+                                margin: 0;
+                                font-size: 18px;
+                                color: #333;
+                            }
+
+                            p {
+                                margin: 5px 0 0 0;
+                                color: #666;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+
+                    .modalText {
+                        text-align: center;
+                        color: #666;
+                        line-height: 1.6;
+                        margin-bottom: 30px;
+                    }
+
+                    .modalButtons {
+                        display: flex;
+                        gap: 15px;
+                        justify-content: center;
+
+                        button {
+                            padding: 15px 30px;
+                            border: none;
+                            border-radius: 10px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            font-size: 16px;
+                            transition: all 0.3s ease;
+                        }
+
+                        .connectBtn {
+                            background: linear-gradient(135deg, #fece51 0%, #ff9800 100%);
+                            color: white;
+                            box-shadow: 0 4px 15px rgba(254, 206, 81, 0.4);
+
+                            &:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 6px 20px rgba(254, 206, 81, 0.6);
+                            }
+                        }
+
+                        .cancelBtn {
+                            background: #f0f0f0;
+                            color: #666;
+
+                            &:hover {
+                                background: #e0e0e0;
+                                color: #333;
+                            }
+                        }
+                    }
+                }
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes slideUp {
+                    from {
+                        transform: translateY(50px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
                     }
                 }
             }

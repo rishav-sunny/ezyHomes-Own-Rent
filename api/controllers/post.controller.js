@@ -6,22 +6,34 @@ export const getPosts = async (req, res) => {
 
     const query = req.query;
 
-    // console.log(query);
+    console.log("Query received:", query);
 
     try {
         const posts = await prisma.post.findMany({
             where: {
-                city: query.city || undefined,
+                city: query.city ? {
+                    contains: query.city,
+                    mode: 'insensitive'
+                } : undefined,
+                state: query.state ? {
+                    contains: query.state,
+                    mode: 'insensitive'
+                } : undefined,
                 type: query.type || undefined,
                 property: query.property || undefined,
                 bedroom: parseInt(query.bedroom) || undefined,
                 price: {
                     gte: parseInt(query.minPrice) || 0,
-                    lte: parseInt(query.maxPrice) || 1000000,
+                    lte: parseInt(query.maxPrice) || 10000000,
                 }
-            }
+            },
+            orderBy: {
+                createdAt: 'desc'
+            },
+            take: query.limit ? parseInt(query.limit) : undefined,
         });
-        // console.log("Posts found");
+        console.log("Posts found:", posts.length);
+        console.log("Posts:", posts.map(p => ({ id: p.id, title: p.title, userId: p.userId })));
         // setTimeout(() => {
             res.status(200).json(posts);
         // }, 3000);
@@ -115,19 +127,57 @@ export const addPost = async (req, res) => {
 export const updatePost = async (req, res) => {
 
     const { id } = req.params;
-    const updatedData = req.body;
+    const tokenUserId = req.userId;
+    const { postData, postDetail } = req.body;
 
     try {
-
-        const updatedPost = await prisma.post.update({
-          where: { id },
-          data: updatedData,
+        // Check if post exists and user owns it
+        const post = await prisma.post.findUnique({
+            where: { id },
+            include: { postDetail: true }
         });
 
-      res.status(200).json(updatedPost);
+        if (!post) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        if (post.userId !== tokenUserId) {
+            return res.status(403).json({ message: "Not Authorized" });
+        }
+
+        // Update post data
+        const updatedPost = await prisma.post.update({
+            where: { id },
+            data: postData,
+        });
+
+        // Update post details if they exist
+        if (postDetail && post.postDetail) {
+            await prisma.postDetail.update({
+                where: { postId: id },
+                data: postDetail
+            });
+        }
+
+        // Fetch the updated post with details
+        const finalPost = await prisma.post.findUnique({
+            where: { id },
+            include: {
+                postDetail: true,
+                user: {
+                    select: {
+                        id: true,
+                        username: true,
+                        avatar: true,
+                    }
+                }
+            }
+        });
+
+        res.status(200).json(finalPost);
     } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: "Failed to update post!" });
+        console.log(err);
+        res.status(500).json({ message: "Failed to update post!", error: err.message });
     }
 }
 
