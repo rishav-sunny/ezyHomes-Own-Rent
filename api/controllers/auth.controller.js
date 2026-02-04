@@ -6,8 +6,6 @@ export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    console.log("Register request body:", req.body);
-
     // Check if user exists
     const user = await prisma.user.findUnique({
       where: { username }
@@ -23,8 +21,6 @@ export const register = async (req, res) => {
       data: { username, email, password: hashedPassword }
     });
 
-    console.log("New user created:", newUser);
-
     res.status(201).json({ message: "User created successfully", user: newUser });
 
   } catch (error) {
@@ -37,19 +33,14 @@ export const login = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    console.log("Login attempt for username:", username);
-
     // CHECK IF THE USER EXISTS
     const user = await prisma.user.findUnique({
       where: { username }
     });
 
     if (!user) {
-      console.log("User not found:", username);
       return res.status(401).json({ message: "Invalid credentials!" });
     }
-
-    console.log("User found:", user.username);
 
     // CHECK IF THE PASSWORD IS CORRECT
     const isPasswordValid = await bcrypt.compare(password, user.password);

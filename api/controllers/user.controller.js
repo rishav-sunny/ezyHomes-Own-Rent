@@ -7,7 +7,6 @@ export const getUsers = async (req, res) => {
         const users = await prisma.user.findMany();
         res.status(200).json(users);
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to get users"});
     }
 };
@@ -22,7 +21,6 @@ export const getUser = async (req, res) => {
 
         res.status(200).json(user);
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to get user"});
     }
 };
@@ -34,8 +32,6 @@ export const updateUser = async (req, res) => {
     const { password, avatar, ...inputs } = req.body;
   
     if (id !== tokenUserId) {
-        console.log(id, tokenUserId);
-        console.log(req.userId);
       return res.status(403).json({ message: "Not Authorized!" });
     }
   
@@ -58,7 +54,6 @@ export const updateUser = async (req, res) => {
   
       res.status(200).json(rest);
     } catch (err) {
-      console.log(err);
       res.status(500).json({ message: "Failed to update users!" });
     }
   };
@@ -79,7 +74,6 @@ export const deleteUser = async (req, res) => {
 
       res.status(200).json({message: "User deleted successfully"});
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to delete user"});
     }
 };
@@ -118,7 +112,6 @@ export const savePost = async (req, res) => {
         res.status(200).json({message: "Post saved successfully"});
       }
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to save post"});
     }
 };
@@ -147,7 +140,6 @@ export const profilePosts = async (req, res) => {
 
       res.status(200).json({userPosts, savedPosts});
   } catch (error) {
-      console.log(error);
       res.status(500).json({message: "Failed to get profile posts"});
   }
 };
@@ -172,7 +164,6 @@ export const getNotificationNumber = async (req, res) => {
 
     res.status(200).json({ number })
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: "Failed to get notification number" })
   }
 }

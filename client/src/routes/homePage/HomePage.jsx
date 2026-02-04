@@ -14,8 +14,6 @@ function HomePage() {
     const fetchLatestProperties = async () => {
       try {
         const response = await apiRequest.get("/posts?limit=20");
-        console.log("Fetched properties:", response.data);
-        console.log("Number of properties:", response.data.length);
         setLatestProperties(response.data);
         setLoading(false);
       } catch (error) {

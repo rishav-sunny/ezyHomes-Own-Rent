@@ -3,10 +3,7 @@ import jwt from "jsonwebtoken";
 
 
 export const getPosts = async (req, res) => {
-
     const query = req.query;
-
-    console.log("Query received:", query);
 
     try {
         const posts = await prisma.post.findMany({
@@ -32,13 +29,10 @@ export const getPosts = async (req, res) => {
             },
             take: query.limit ? parseInt(query.limit) : undefined,
         });
-        console.log("Posts found:", posts.length);
-        console.log("Posts:", posts.map(p => ({ id: p.id, title: p.title, userId: p.userId })));
         // setTimeout(() => {
             res.status(200).json(posts);
         // }, 3000);
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to get posts"});
     }
 }
@@ -94,7 +88,6 @@ export const getPost = async (req, res) => {
 
         res.status(200).json({...post, isSaved: saved ? true : false});
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to get post"});
     }
 }
@@ -118,7 +111,6 @@ export const addPost = async (req, res) => {
 
         res.status(200).json(post);
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to create post"});
     }
 }
@@ -176,7 +168,6 @@ export const updatePost = async (req, res) => {
 
         res.status(200).json(finalPost);
     } catch (err) {
-        console.log(err);
         res.status(500).json({ message: "Failed to update post!", error: err.message });
     }
 }
@@ -205,7 +196,6 @@ export const deletePost = async (req, res) => {
 
         res.status(200).json("Post deleted successfully");
     } catch (error) {
-        console.log(error);
         res.status(500).json({message: "Failed to delete post"});
     }
 }

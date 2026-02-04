@@ -44,7 +44,6 @@ const PostContent = ({ post, currentUser, navigate }) => {
     try {
       await apiRequest.post("/users/save", { postId: post.id });
     } catch (error) {
-      console.log(error);
       setSaved((prev) => !prev);
     }
   };
@@ -67,7 +66,7 @@ const PostContent = ({ post, currentUser, navigate }) => {
       const res = await apiRequest.post("/chats", { receiverId: post.userId });
       navigate("/profile");
     } catch (error) {
-      console.log(error);
+      // Handle error silently
     }
   };
 
@@ -81,7 +80,7 @@ const PostContent = ({ post, currentUser, navigate }) => {
       const res = await apiRequest.post("/chats", { receiverId: post.userId });
       navigate("/profile");
     } catch (error) {
-      console.log(error);
+      // Handle error silently
     }
   };
 

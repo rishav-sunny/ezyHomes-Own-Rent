@@ -1,8 +1,10 @@
 import { Server } from "socket.io";
+import dotenv from "dotenv";
+dotenv.config();
 
 const io = new Server({
     cors: {
-    origin: ["https://ezy-homes-own-rent.vercel.app", "http://localhost:5173"],
+    origin: process.env.CLIENT_URL?.split(',') || ["http://localhost:5174"],
     methods: ["GET", "POST"],
   }
 });
@@ -46,4 +48,6 @@ io.on("connection", (socket) => {
 
 })
 
-io.listen("4000");
+const PORT = process.env.PORT || 4000;
+io.listen(PORT);
+console.log(`Socket server running on port ${PORT}`);

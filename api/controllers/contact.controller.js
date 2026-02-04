@@ -22,7 +22,6 @@ export const createContact = async (req, res) => {
       data: contact
     })
   } catch (error) {
-      console.log("Error in creating Contact: ", error.message);
       return res.status(500).json({
       success: false,
       message:'Internal Server Error'
