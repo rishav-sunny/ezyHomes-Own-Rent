@@ -14,6 +14,14 @@ dotenv.config()
 
 const app = express();
 
+// Log environment check
+console.log('=== Environment Variables Check ===');
+console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
+console.log('JWT_SECRET_KEY exists:', !!process.env.JWT_SECRET_KEY);
+console.log('CLIENT_URL:', process.env.CLIENT_URL);
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('===================================');
+
 //CORS
 app.use(cors({
   origin: process.env.CLIENT_URL?.split(',') || ["http://localhost:5174"],
