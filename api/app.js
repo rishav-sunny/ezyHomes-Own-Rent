@@ -24,8 +24,18 @@ console.log('===================================');
 
 //CORS
 app.use(cors({
-  origin: process.env.CLIENT_URL?.split(',') || ["http://localhost:5174"],
-  credentials:true,
+  origin: function (origin, callback) {
+    const allowedOrigins = process.env.CLIENT_URL?.split(',') || ["http://localhost:5174"];
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      return callback(new Error('CORS policy violation'), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 //MIDDLEWARES
