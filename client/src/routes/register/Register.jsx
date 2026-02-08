@@ -1,4 +1,3 @@
-import axios from "axios";
 import "./register.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -19,21 +18,16 @@ function Register() {
     const password = formData.get("password");
 
     try {
-      const res = await axios.post("http://localhost:8800/api/auth/register", {
+      const res = await apiRequest.post("/auth/register", {
         username,email,password
       })
-
-      // CAN DO THE SAME WITH MODIFIED AXIOS
-      // const res = await apiRequest.post("/auth/register", {
-      //   username,email,password
-      // })
 
       console.log(res.data);
       nevigate("/login");
 
     } catch (error) {
       console.log(error);
-      setError(error.response.data.message);
+      setError(error.response?.data?.message || "Failed to register. Please check if the server is running.");
     } finally {
       setLoading(false);
     }

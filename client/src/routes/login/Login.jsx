@@ -33,7 +33,7 @@ const Login = () => {
       nevigate("/");
     } catch (error) {
       console.log(error);
-      setError(error.response.data.message);
+      setError(error.response?.data?.message || "Failed to login. Please check if the server is running.");
     } finally {
       setLoading(false);
     }
