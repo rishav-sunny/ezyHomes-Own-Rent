@@ -1,21 +1,30 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './login.scss'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import apiRequest from '../../lib/apiRequest';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = () => {
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   const {updateUser} = useContext(AuthContext);
 
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.flash) {
+      setSuccess(location.state.flash);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
 
     const formData = new FormData(e.target);
     const username = formData.get("username");
@@ -30,7 +39,10 @@ const Login = () => {
       // localStorage.setItem("user", JSON.stringify(res.data));
       updateUser(res.data);
 
-      nevigate("/");
+      setSuccess("Login successful! Redirecting...");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } catch (error) {
       console.log(error);
       setError(error.response?.data?.message || "Failed to login. Please check if the server is running.");
@@ -40,7 +52,7 @@ const Login = () => {
   }
 
   const handleSkipLogin = () => {
-    nevigate("/");
+    navigate("/");
   };
 
   return (
@@ -51,6 +63,7 @@ const Login = () => {
             <input type="text" name="username" id="username" placeholder='Username'/>
             <input type="password" name="password" id="password" placeholder='Password'/>
             <button disabled={loading}>Login</button>
+            {success && <div className="noticeBanner success">{success}</div>}
             {error && <span className="error">{error}</span>}
             <Link to={"/register"}>{"Don't"} you have an account</Link>
             <button type="button" className="skipButton" onClick={handleSkipLogin}>

@@ -38,6 +38,19 @@
         span{
           color: rgba(255, 0, 0, 0.591);
         }
+
+        .noticeBanner {
+          border-radius: 8px;
+          padding: 12px 14px;
+          font-size: 14px;
+          animation: bannerIn 0.3s ease;
+        }
+
+        .noticeBanner.success {
+          background: #e9f7ef;
+          color: #1f7a3f;
+          border: 1px solid #bfe7cf;
+        }
   
         a{
           font-size: 14px;
@@ -72,5 +85,16 @@
       img {
         width: 100%;
       }
+    }
+  }
+
+  @keyframes bannerIn {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }

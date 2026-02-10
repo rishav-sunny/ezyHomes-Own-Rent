@@ -91,6 +91,31 @@
             height: 100%;
             margin-bottom: 20px;
             margin-top: 20px;
+
+            .noticeBanner{
+                border-radius: 10px;
+                padding: 12px 14px;
+                font-size: 14px;
+                margin-bottom: 12px;
+                animation: bannerIn 0.3s ease;
+            }
+
+            .noticeBanner.success{
+                background: #e9f7ef;
+                color: #1f7a3f;
+                border: 1px solid #bfe7cf;
+            }
+        }
+    }
+
+    @keyframes bannerIn {
+        from {
+            opacity: 0;
+            transform: translateY(-6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 }

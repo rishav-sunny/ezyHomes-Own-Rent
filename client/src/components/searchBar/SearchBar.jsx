@@ -9,8 +9,8 @@ function SearchBar() {
   const [query, setQuery] = useState({
     type: "buy",
     city: "",
-    minPrice: 0,
-    maxPrice: 0,
+    minPrice: "",
+    maxPrice: "",
   });
 
   const switchType = (val) => {
@@ -26,6 +26,13 @@ function SearchBar() {
     setQuery((prev) => ({ ...prev, [e.target.name]:e.target.value }));
   }
 
+  const params = new URLSearchParams();
+  if (query.type) params.set("type", query.type);
+  if (query.city) params.set("city", query.city);
+  if (query.minPrice !== "") params.set("minPrice", query.minPrice);
+  if (query.maxPrice !== "") params.set("maxPrice", query.maxPrice);
+  const listUrl = params.toString() ? `/list?${params.toString()}` : "/list";
+
   return (
     <div className="searchBar">
       <div className="type">
@@ -40,13 +47,20 @@ function SearchBar() {
         ))}
       </div>
       <form>
-        <input type="text" name="city" placeholder="City" onChange={handleChange}/>
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          value={query.city}
+          onChange={handleChange}
+        />
         <input
           type="number"
           name="minPrice"
           min={0}
           max={10000000}
           placeholder="Min Price"
+          value={query.minPrice}
           onChange={handleChange}
         />
         <input
@@ -55,9 +69,10 @@ function SearchBar() {
           min={0}
           max={10000000}
           placeholder="Max Price"
+          value={query.maxPrice}
           onChange={handleChange}
         />
-        <Link to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}>
+        <Link to={listUrl}>
           <button type="button">
             <Search size={20} />
           </button>
@@ -65,8 +80,6 @@ function SearchBar() {
       </form>
     </div>
   );
-  
-  explanation: "Added type='button' to prevent form submission conflict"
 }
 
 export default SearchBar;

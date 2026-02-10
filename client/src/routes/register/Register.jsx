@@ -5,13 +5,15 @@ import apiRequest from "../../lib/apiRequest";
 
 function Register() {
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const nevigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess("");
     const formData = new FormData(e.target);
     const username = formData.get("username");
     const email = formData.get("email");
@@ -19,15 +21,25 @@ function Register() {
 
     try {
       const res = await apiRequest.post("/auth/register", {
-        username,email,password
-      })
+        username,
+        email,
+        password,
+      });
 
       console.log(res.data);
-      nevigate("/login");
+      setSuccess("Registration successful! Redirecting to login...");
+      setTimeout(() => {
+        navigate("/login", {
+          state: { flash: "Registration successful. Please log in." },
+        });
+      }, 1500);
 
     } catch (error) {
       console.log(error);
-      setError(error.response?.data?.message || "Failed to register. Please check if the server is running.");
+      setError(
+        error.response?.data?.message ||
+          "Failed to register. Please check if the server is running."
+      );
     } finally {
       setLoading(false);
     }
@@ -43,6 +55,7 @@ function Register() {
           <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
           <button disabled={loading}>Register</button>
+          {success && <div className="noticeBanner success">{success}</div>}
           {error && <span className="error">{error}</span>}
           <Link to="/login">Do you have an account?</Link>
         </form>

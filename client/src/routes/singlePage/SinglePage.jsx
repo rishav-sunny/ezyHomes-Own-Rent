@@ -32,6 +32,10 @@ const PostContent = ({ post, currentUser, navigate }) => {
   const [saved, setSaved] = useState(post.isSaved);
   const [showContactModal, setShowContactModal] = useState(false);
   const isOwner = currentUser?.id === post.userId;
+  const sellerInfo = {
+    username: post.user?.username || "Seller",
+    avatar: post.user?.avatar || "/noavatar.jpg",
+  };
 
   const handleSave = async () => {
     if (!currentUser) {
@@ -64,7 +68,12 @@ const PostContent = ({ post, currentUser, navigate }) => {
 
     try {
       const res = await apiRequest.post("/chats", { receiverId: post.userId });
-      navigate("/profile");
+      navigate("/profile", {
+        state: {
+          notice: "Your details were shared with the seller. They will contact you soon.",
+          seller: sellerInfo,
+        },
+      });
     } catch (error) {
       // Handle error silently
     }
@@ -78,7 +87,12 @@ const PostContent = ({ post, currentUser, navigate }) => {
 
     try {
       const res = await apiRequest.post("/chats", { receiverId: post.userId });
-      navigate("/profile");
+      navigate("/profile", {
+        state: {
+          notice: "Chat created. You can message the seller now.",
+          seller: sellerInfo,
+        },
+      });
     } catch (error) {
       // Handle error silently
     }

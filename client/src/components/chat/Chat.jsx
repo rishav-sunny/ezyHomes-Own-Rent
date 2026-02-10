@@ -7,7 +7,7 @@ import { SocketContext } from '../../context/SocketContext';
 import { useNotificationStore } from '../../lib/notificationStore';
 
 
-function Chat({chats}) {
+function Chat({chats, notice, noticeSeller}) {
     const [chat, setChat] = useState(null);
     const { currentUser } = useContext(AuthContext);
     const { socket } = useContext(SocketContext); 
@@ -82,7 +82,13 @@ function Chat({chats}) {
       }, [socket, chat]);
 
 
-  return (
+    const placeholderSeller = noticeSeller || {
+        username: "Seller",
+        avatar: "/noavatar.jpg",
+    };
+    const systemMessage = notice || "Thank you for contacting. We will reach out soon.";
+
+    return (
     <div className='chat'>
         <div className="messages">
             <h1>Messages</h1>
@@ -104,6 +110,34 @@ function Chat({chats}) {
                 ))
             }
         </div>
+
+        {!chat && notice && (
+            <div className='chatBox placeholder'>
+                <div className="top">
+                    <div className="user">
+                        <img src={placeholderSeller.avatar} alt="" />
+                        {placeholderSeller.username}
+                    </div>
+                    <div className="status">Request Sent</div>
+                </div>
+                <div className="center">
+                    <div className="chatMessage system">
+                        <p>{systemMessage}</p>
+                        <span>Just now</span>
+                    </div>
+                    <div className="chatMessage own">
+                        <p>Thanks! I will wait for your response.</p>
+                        <span>Just now</span>
+                    </div>
+                </div>
+                <div className="bottom">
+                    <form>
+                        <textarea name="text" placeholder="Type your message" disabled></textarea>
+                        <button disabled>Send</button>
+                    </form>
+                </div>
+            </div>
+        )}
         
         {chat && (
             <div className='chatBox'>
